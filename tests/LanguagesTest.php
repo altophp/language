@@ -11,10 +11,10 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-namespace Alto\Code\Language\Tests;
+namespace Alto\Language\Tests;
 
-use Alto\Code\Language\Languages;
-use Alto\Code\Language\LanguageType;
+use Alto\Language\Languages;
+use Alto\Language\LanguageType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-namespace Alto\Code\Language;
+namespace Alto\Language;
 
 /**
  * Injectable registry that indexes languages by slug, extension, alias, and filename.

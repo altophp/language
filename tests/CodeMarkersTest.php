@@ -11,11 +11,11 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-namespace Alto\Code\Language\Tests;
+namespace Alto\Language\Tests;
 
-use Alto\Code\Language\BlockStyle;
-use Alto\Code\Language\CodeMarkers;
-use Alto\Code\Language\IndentStyle;
+use Alto\Language\BlockStyle;
+use Alto\Language\CodeMarkers;
+use Alto\Language\IndentStyle;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -92,6 +92,6 @@ final class CodeMarkersTest extends TestCase
 
         self::assertSame($expected, $markers->toArray());
         self::assertSame($expected, $markers->jsonSerialize());
-        self::assertJsonStringEqualsJsonString(json_encode($expected), json_encode($markers));
+        self::assertJsonStringEqualsJsonString(json_encode($expected, JSON_THROW_ON_ERROR), json_encode($markers, JSON_THROW_ON_ERROR));
     }
 }

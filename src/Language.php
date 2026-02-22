@@ -11,7 +11,7 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-namespace Alto\Code\Language;
+namespace Alto\Language;
 
 /**
  * Immutable value object representing a programming language and its metadata.

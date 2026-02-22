@@ -1,5 +1,5 @@
 {
-    "name": "alto/code-language",
+    "name": "alto/language",
     "description": "Alto PHP library for programming language identification: extensions, aliases, markers, indentations",
     "license": "MIT",
     "type": "library",
@@ -24,12 +24,12 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Alto\\Code\\Language\\": "src/"
+            "Alto\\Language\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Alto\\Code\\Language\\Tests\\": "tests/"
+            "Alto\\Language\\Tests\\": "tests/"
         }
     },
     "config": {

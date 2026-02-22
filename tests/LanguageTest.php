@@ -11,13 +11,13 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-namespace Alto\Code\Language\Tests;
+namespace Alto\Language\Tests;
 
-use Alto\Code\Language\BlockStyle;
-use Alto\Code\Language\CodeMarkers;
-use Alto\Code\Language\IndentStyle;
-use Alto\Code\Language\Language;
-use Alto\Code\Language\LanguageType;
+use Alto\Language\BlockStyle;
+use Alto\Language\CodeMarkers;
+use Alto\Language\IndentStyle;
+use Alto\Language\Language;
+use Alto\Language\LanguageType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-namespace Alto\Code\Language;
+namespace Alto\Language;
 
 /**
  * Defines whether code should be indented with spaces or tabs.

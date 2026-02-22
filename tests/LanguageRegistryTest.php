@@ -11,11 +11,11 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-namespace Alto\Code\Language\Tests;
+namespace Alto\Language\Tests;
 
-use Alto\Code\Language\Language;
-use Alto\Code\Language\LanguageRegistry;
-use Alto\Code\Language\LanguageType;
+use Alto\Language\Language;
+use Alto\Language\LanguageRegistry;
+use Alto\Language\LanguageType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -271,12 +271,12 @@ final class LanguageRegistryTest extends TestCase
 
     public function testCustomDataDirLoadsDefinitions(): void
     {
-        $dir = sys_get_temp_dir().'/alto-lang-test-'.uniqid();
+        $dir = sys_get_temp_dir().'/alto-lang-test-'.uniqid('', true);
         mkdir($dir);
 
         file_put_contents($dir.'/test.php', "<?php
-use Alto\\Code\\Language\\Language;
-use Alto\\Code\\Language\\LanguageType;
+use Alto\\Language\\Language;
+use Alto\\Language\\LanguageType;
 return new Language(name: 'Test Lang', slug: 'test-lang', type: LanguageType::Programming, extensions: ['.tst']);
 ");
 
@@ -293,7 +293,7 @@ return new Language(name: 'Test Lang', slug: 'test-lang', type: LanguageType::Pr
 
     public function testLoadDefinitionsSkipsNonLanguageReturns(): void
     {
-        $dir = sys_get_temp_dir().'/alto-lang-test-'.uniqid();
+        $dir = sys_get_temp_dir().'/alto-lang-test-'.uniqid('', true);
         mkdir($dir);
 
         file_put_contents($dir.'/notlang.php', '<?php return "not a language";');

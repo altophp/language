@@ -11,7 +11,7 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-namespace Alto\Code\Language;
+namespace Alto\Language;
 
 /**
  * Categorizes languages by their primary purpose and usage domain.

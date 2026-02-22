@@ -8,13 +8,13 @@ Zero dependencies. 100% test coverage. PHP 8.4+.
 ## Installation
 
 ```bash
-composer require alto/code-language
+composer require alto/language
 ```
 
 ## Quick Start
 
 ```php
-use Alto\Code\Language\Languages;
+use Alto\Language\Languages;
 
 // Lookup by slug
 $php = Languages::get('php');
@@ -66,7 +66,7 @@ Languages::resolve('Makefile');       // by filename
 All facade methods delegate to `LanguageRegistry`, which can be injected directly:
 
 ```php
-use Alto\Code\Language\LanguageRegistry;
+use Alto\Language\LanguageRegistry;
 
 $registry = new LanguageRegistry();
 $python = $registry->get('python');
@@ -204,8 +204,8 @@ Languages with filename-based matching (no extension): Dockerfile, Makefile, `.g
 
 ## Contributing
 
-Contributions are welcome! Please feel free to [submit issues](https://github.com/phpalto/code-language/issues)
-or [pull requests](https://github.com/phpalto/code-language/pulls).
+Contributions are welcome! Please feel free to [submit issues](https://github.com/phpalto/language/issues)
+or [pull requests](https://github.com/phpalto/language/pulls).
 
 ### Adding a Language
 
@@ -215,9 +215,9 @@ Create a new file in `data/languages/`:
 <?php
 // data/languages/mylang.php
 
-use Alto\Code\Language\CodeMarkers;
-use Alto\Code\Language\Language;
-use Alto\Code\Language\LanguageType;
+use Alto\Language\CodeMarkers;
+use Alto\Language\Language;
+use Alto\Language\LanguageType;
 
 return new Language(
     name: 'MyLang',

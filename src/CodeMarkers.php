@@ -11,7 +11,7 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-namespace Alto\Code\Language;
+namespace Alto\Language;
 
 /**
  * Syntactic fingerprints for identifying and parsing a language in mixed content.

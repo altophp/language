@@ -11,11 +11,11 @@ declare(strict_types=1);
  * the LICENSE file distributed with this source code.
  */
 
-use Alto\Code\Language\BlockStyle;
-use Alto\Code\Language\CodeMarkers;
-use Alto\Code\Language\IndentStyle;
-use Alto\Code\Language\Language;
-use Alto\Code\Language\LanguageType;
+use Alto\Language\BlockStyle;
+use Alto\Language\CodeMarkers;
+use Alto\Language\IndentStyle;
+use Alto\Language\Language;
+use Alto\Language\LanguageType;
 
 return new Language(
     name: 'Julia',
