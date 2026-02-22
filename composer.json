@@ -1,0 +1,50 @@
+{
+    "name": "alto/code-language",
+    "description": "Alto PHP library for programming language identification: extensions, aliases, markers, indentations",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "language",
+        "programming",
+        "identification",
+        "extensions",
+        "code-markers",
+        "code",
+        "linguist",
+        "linguee"
+    ],
+    "require": {
+        "php": ">=8.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^12.0"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Alto\\Code\\Language\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Alto\\Code\\Language\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "cs": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "vendor/bin/php-cs-fixer fix",
+        "qa": [
+            "@cs",
+            "@test",
+            "@sa"
+        ],
+        "sa": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-text"
+    }
+}

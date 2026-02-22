@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the ALTO library.
+ *
+ * © 2026–present Simon André
+ *
+ * For full copyright and license information, please see
+ * the LICENSE file distributed with this source code.
+ */
+
+use Alto\Code\Language\BlockStyle;
+use Alto\Code\Language\CodeMarkers;
+use Alto\Code\Language\IndentStyle;
+use Alto\Code\Language\Language;
+use Alto\Code\Language\LanguageType;
+
+return new Language(
+    name: 'JSON',
+    slug: 'json',
+    type: LanguageType::Data,
+    extensions: ['.json', '.jsonc', '.geojson', '.json5'],
+    aliases: ['json', 'jsonc'],
+    filenames: ['.prettierrc', '.eslintrc', '.babelrc', '.swcrc', 'composer.lock'],
+    year: 2001,
+    markers: new CodeMarkers(
+        stringDelimiters: ['"'],
+        blockStyle: BlockStyle::Braces,
+        defaultIndentation: 2,
+        indentStyle: IndentStyle::Spaces,
+    ),
+);
