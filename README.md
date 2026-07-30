@@ -204,8 +204,8 @@ Languages with filename-based matching (no extension): Dockerfile, Makefile, `.g
 
 ## Contributing
 
-Contributions are welcome! Please feel free to [submit issues](https://github.com/phpalto/language/issues)
-or [pull requests](https://github.com/phpalto/language/pulls).
+Contributions are welcome! Please feel free to [submit issues](https://github.com/altophp/language/issues)
+or [pull requests](https://github.com/altophp/language/pulls).
 
 ### Adding a Language
 
@@ -234,5 +234,5 @@ return new Language(
 
 ## License
 
-Released by the [Alto project](https://github.com/phpalto) under the MIT License.
+Released by the [Alto project](https://github.com/altophp) under the MIT License.
 See the [LICENSE](LICENSE) file for details.
