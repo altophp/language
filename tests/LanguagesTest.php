@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the ALTO library.
  *
- * © 2026–present Simon André
+ * © 2026-present Simon André
  *
  * For full copyright and license information, please see
  * the LICENSE file distributed with this source code.
@@ -58,7 +58,7 @@ final class LanguagesTest extends TestCase
         $queries = Languages::ofType(LanguageType::Query);
         self::assertNotEmpty($queries);
 
-        $slugs = array_map(fn ($l) => $l->slug, $queries);
+        $slugs = array_map(fn($l) => $l->slug, $queries);
         self::assertContains('sql', $slugs);
         self::assertContains('graphql', $slugs);
     }
@@ -77,7 +77,7 @@ final class LanguagesTest extends TestCase
     public function testChildren(): void
     {
         $children = Languages::children('css');
-        $slugs = array_map(fn ($l) => $l->slug, $children);
+        $slugs = array_map(fn($l) => $l->slug, $children);
 
         self::assertContains('sass', $slugs);
         self::assertContains('scss', $slugs);
@@ -86,6 +86,6 @@ final class LanguagesTest extends TestCase
 
     public function testConflicts(): void
     {
-        self::assertIsArray(Languages::conflicts());
+        self::assertSame([], Languages::conflicts());
     }
 }

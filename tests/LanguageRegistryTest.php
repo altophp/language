@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the ALTO library.
  *
- * © 2026–present Simon André
+ * © 2026-present Simon André
  *
  * For full copyright and license information, please see
  * the LICENSE file distributed with this source code.
@@ -90,9 +90,8 @@ final class LanguageRegistryTest extends TestCase
         $all = $registry->all();
 
         self::assertNotEmpty($all);
-        self::assertContainsOnlyInstancesOf(Language::class, $all);
 
-        $slugs = array_map(fn (Language $l) => $l->slug, $all);
+        $slugs = array_map(fn(Language $l) => $l->slug, $all);
         self::assertContains('php', $slugs);
         self::assertContains('javascript', $slugs);
         self::assertContains('python', $slugs);
@@ -167,7 +166,7 @@ final class LanguageRegistryTest extends TestCase
     {
         $registry = new LanguageRegistry();
         $children = $registry->children('javascript');
-        $slugs = array_map(fn (Language $l) => $l->slug, $children);
+        $slugs = array_map(fn(Language $l) => $l->slug, $children);
 
         self::assertContains('typescript', $slugs);
         self::assertContains('coffeescript', $slugs);
@@ -182,7 +181,7 @@ final class LanguageRegistryTest extends TestCase
     public function testConflictsOnCleanRegistry(): void
     {
         $registry = new LanguageRegistry();
-        self::assertIsArray($registry->conflicts());
+        self::assertSame([], $registry->conflicts());
     }
 
     public function testConflictsDetected(): void
@@ -271,10 +270,10 @@ final class LanguageRegistryTest extends TestCase
 
     public function testCustomDataDirLoadsDefinitions(): void
     {
-        $dir = sys_get_temp_dir().'/alto-lang-test-'.uniqid('', true);
+        $dir = sys_get_temp_dir() . '/alto-lang-test-' . uniqid('', true);
         mkdir($dir);
 
-        file_put_contents($dir.'/test.php', "<?php
+        file_put_contents($dir . '/test.php', "<?php
 use Alto\\Language\\Language;
 use Alto\\Language\\LanguageType;
 return new Language(name: 'Test Lang', slug: 'test-lang', type: LanguageType::Programming, extensions: ['.tst']);
@@ -287,21 +286,21 @@ return new Language(name: 'Test Lang', slug: 'test-lang', type: LanguageType::Pr
         self::assertSame('Test Lang', $lang->name);
         self::assertCount(1, $registry->all());
 
-        unlink($dir.'/test.php');
+        unlink($dir . '/test.php');
         rmdir($dir);
     }
 
     public function testLoadDefinitionsSkipsNonLanguageReturns(): void
     {
-        $dir = sys_get_temp_dir().'/alto-lang-test-'.uniqid('', true);
+        $dir = sys_get_temp_dir() . '/alto-lang-test-' . uniqid('', true);
         mkdir($dir);
 
-        file_put_contents($dir.'/notlang.php', '<?php return "not a language";');
+        file_put_contents($dir . '/notlang.php', '<?php return "not a language";');
 
         $registry = new LanguageRegistry($dir);
         self::assertCount(0, $registry->all());
 
-        unlink($dir.'/notlang.php');
+        unlink($dir . '/notlang.php');
         rmdir($dir);
     }
 }

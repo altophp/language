@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the ALTO library.
  *
- * © 2026–present Simon André
+ * © 2026-present Simon André
  *
  * For full copyright and license information, please see
  * the LICENSE file distributed with this source code.
@@ -41,10 +41,11 @@ final readonly class Language implements \JsonSerializable
         public ?int $year = null,
         public ?string $parent = null,
         public CodeMarkers $markers = new CodeMarkers(),
-    ) {
-    }
+    ) {}
 
-    /** @return array<string, mixed> */
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [
@@ -60,7 +61,9 @@ final readonly class Language implements \JsonSerializable
         ];
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         return $this->toArray();

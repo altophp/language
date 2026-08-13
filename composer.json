@@ -1,27 +1,44 @@
 {
     "name": "alto/language",
-    "description": "Alto PHP library for programming language identification: extensions, aliases, markers, indentations",
+    "description": "Programming and document language metadata: extensions, aliases, filenames, and syntax markers.",
     "license": "MIT",
     "type": "library",
     "keywords": [
         "language",
         "programming",
         "identification",
+        "metadata",
         "extensions",
-        "code-markers",
-        "code",
-        "linguist",
-        "linguee"
+        "filenames",
+        "syntax-markers",
+        "code"
+    ],
+    "authors": [
+        {
+            "name": "Simon André",
+            "email": "smn.andre@gmail.com"
+        }
+    ],
+    "homepage": "https://altophp.com/language/",
+    "support": {
+        "issues": "https://github.com/altophp/language/issues",
+        "source": "https://github.com/altophp/language",
+        "docs": "https://altophp.com/language/"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/smnandre"
+        }
     ],
     "require": {
         "php": ">=8.4"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0",
-        "phpstan/phpstan": "^2.0",
-        "phpunit/phpunit": "^12.0"
+        "friendsofphp/php-cs-fixer": "^3.94",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.5"
     },
-    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Alto\\Language\\": "src/"
@@ -36,14 +53,14 @@
         "sort-packages": true
     },
     "scripts": {
-        "cs": "vendor/bin/php-cs-fixer fix --dry-run --diff",
-        "cs:fix": "vendor/bin/php-cs-fixer fix",
+        "cs": "vendor/bin/php-cs-fixer fix --dry-run --diff --sequential",
+        "cs:fix": "vendor/bin/php-cs-fixer fix --sequential",
         "qa": [
             "@cs",
-            "@test",
-            "@sa"
+            "@sa",
+            "@test"
         ],
-        "sa": "vendor/bin/phpstan analyse",
+        "sa": "vendor/bin/phpstan analyse --memory-limit=-1",
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-text"
     }
