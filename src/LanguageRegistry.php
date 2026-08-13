@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the ALTO library.
  *
- * © 2026–present Simon André
+ * © 2026-present Simon André
  *
  * For full copyright and license information, please see
  * the LICENSE file distributed with this source code.
@@ -20,27 +20,36 @@ namespace Alto\Language;
  */
 final class LanguageRegistry
 {
-    /** @var array<string, Language> slug → Language */
+    /**
+     * @var array<string, Language> slug → Language
+     */
     private array $bySlug = [];
 
-    /** @var array<string, Language> extension → Language (first registered wins) */
+    /**
+     * @var array<string, Language> extension → Language (first registered wins)
+     */
     private array $byExtension = [];
 
-    /** @var array<string, Language> alias → Language */
+    /**
+     * @var array<string, Language> alias → Language
+     */
     private array $byAlias = [];
 
-    /** @var array<string, Language> filename → Language */
+    /**
+     * @var array<string, Language> filename → Language
+     */
     private array $byFilename = [];
 
-    /** @var array<string, string[]> index type → list of conflicting keys */
+    /**
+     * @var array<string, string[]> index type → list of conflicting keys
+     */
     private array $conflicts = [];
 
     private bool $loaded = false;
 
     public function __construct(
         private readonly ?string $dataDir = null,
-    ) {
-    }
+    ) {}
 
     public function register(Language $language): void
     {
@@ -81,7 +90,7 @@ final class LanguageRegistry
         $this->boot();
 
         if (!str_starts_with($extension, '.')) {
-            $extension = '.'.$extension;
+            $extension = '.' . $extension;
         }
 
         return $this->byExtension[strtolower($extension)] ?? null;
@@ -136,7 +145,7 @@ final class LanguageRegistry
 
         return array_values(array_filter(
             $this->bySlug,
-            static fn (Language $l): bool => $l->type === $type,
+            static fn(Language $l): bool => $l->type === $type,
         ));
     }
 
@@ -151,7 +160,7 @@ final class LanguageRegistry
 
         return array_values(array_filter(
             $this->bySlug,
-            static fn (Language $l): bool => $l->parent === $slug,
+            static fn(Language $l): bool => $l->parent === $slug,
         ));
     }
 
@@ -190,12 +199,12 @@ final class LanguageRegistry
 
     private function loadDefinitions(): void
     {
-        $dir = $this->dataDir ?? dirname(__DIR__).'/data/languages';
+        $dir = $this->dataDir ?? dirname(__DIR__) . '/data/languages';
         if (!is_dir($dir)) {
             throw new \RuntimeException(sprintf('Languages directory not found in dir "%s".', $dir));
         }
 
-        foreach (glob($dir.'/*.php') ?: [] as $file) {
+        foreach (glob($dir . '/*.php') ?: [] as $file) {
             $language = require $file;
 
             if ($language instanceof Language) {

@@ -1,7 +1,10 @@
-/.phpunit.cache/
 /vendor/
-/.php-cs-fixer.cache
-/coverage.xml
 /composer.lock
+/.phpunit.cache/
+/.phpunit.result.cache
+/.php-cs-fixer.cache
+/coverage/
+/coverage.xml
+/clover.xml
 /phpstan.neon
 /phpunit.xml

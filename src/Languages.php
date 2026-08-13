@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the ALTO library.
  *
- * © 2026–present Simon André
+ * © 2026-present Simon André
  *
  * For full copyright and license information, please see
  * the LICENSE file distributed with this source code.
@@ -42,19 +42,25 @@ final class Languages
         return self::registry()->fromFilename($filename);
     }
 
-    /** @return Language[] */
+    /**
+     * @return Language[]
+     */
     public static function all(): array
     {
         return self::registry()->all();
     }
 
-    /** @return Language[] */
+    /**
+     * @return Language[]
+     */
     public static function ofType(LanguageType $type): array
     {
         return self::registry()->ofType($type);
     }
 
-    /** @return Language[] */
+    /**
+     * @return Language[]
+     */
     public static function children(string $slug): array
     {
         return self::registry()->children($slug);

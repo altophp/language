@@ -1,238 +1,93 @@
-# Alto Code Language
+# ALTO Language
 
-A lightweight PHP library providing structured metadata for **62 programming languages** — extensions, aliases,
-filenames, syntax markers, and more.
+Programming and document language metadata for PHP applications.
 
-Zero dependencies. 100% test coverage. PHP 8.4+.
+&nbsp; ![PHP Version](https://img.shields.io/badge/PHP-8.4%2B-00B7FF?logoColor=00B7FF&labelColor=050608)
+&nbsp; ![CI](https://img.shields.io/github/actions/workflow/status/altophp/language/CI.yml?branch=main&label=Tests&labelColor=050608&color=00B7FF)
+&nbsp; [![Packagist](https://img.shields.io/packagist/v/alto/language?label=Packagist&labelColor=050608&color=00B7FF)](https://packagist.org/packages/alto/language)
+&nbsp; ![License](https://img.shields.io/github/license/altophp/language?label=License&labelColor=050608&color=00B7FF)
+&nbsp; [![GitHub Sponsors](https://img.shields.io/github/sponsors/smnandre?logo=githubsponsors&logoColor=00B7FF&label=%20Sponsor&labelColor=050608&color=00B7FF)](https://github.com/sponsors/smnandre)
+
+ALTO Language resolves programming and document languages from slugs, aliases, extensions, and
+exact filenames. It returns immutable metadata with syntax markers, relationships, and common
+formatting conventions without inspecting file contents.
+
+```php
+use Alto\Language\Languages;
+
+$language = Languages::fromFilename('templates/home.html.twig');
+
+echo $language?->name;        // Twig
+echo $language?->type->value; // template
+```
+
+The package includes 62 lazily loaded definitions and has no runtime dependencies. Catalog tests
+check every slug, extension, alias, filename, and parent relationship for consistency.
 
 ## Installation
+
+Install ALTO Language with Composer:
 
 ```bash
 composer require alto/language
 ```
 
+ALTO Language requires PHP 8.4 or later. It does not require additional PHP extensions.
+
 ## Quick Start
+
+Use the `Languages` facade when the identifier type is known:
 
 ```php
 use Alto\Language\Languages;
 
-// Lookup by slug
 $php = Languages::get('php');
-$php->name;       // "PHP"
-$php->extensions; // [".php", ".phtml", ".php3", …]
-$php->type;       // LanguageType::Programming
-
-// Lookup by file extension
-Languages::fromExtension('.ts');       // → typescript
-Languages::fromExtension('rs');        // → rust (dot is optional)
-
-// Lookup by alias
-Languages::fromAlias('py');            // → python
-Languages::fromAlias('jsx');           // → javascript
-
-// Lookup by filename
-Languages::fromFilename('Dockerfile'); // → dockerfile
-Languages::fromFilename('Makefile');   // → makefile
-Languages::fromFilename('.gitignore'); // → ignore
-
-// Compound extension fallback
-Languages::fromFilename('phpunit.xml.dist'); // → xml
-
-// Resolve from any identifier (slug → alias → extension → filename)
-Languages::resolve('typescript');      // by slug
-Languages::resolve('ts');             // by alias
-Languages::resolve('.tsx');           // by extension
-Languages::resolve('Makefile');       // by filename
+$rust = Languages::fromExtension('rs');
+$python = Languages::fromAlias('py');
+$make = Languages::fromFilename('/project/Makefile');
 ```
 
-## API
+Each lookup returns a `Language` value object or `null`. Use `Languages::resolve()` only when the
+identifier may be a slug, alias, extension, or filename.
 
-### Static Facade (`Languages`)
+## Documentation
 
-| Method                            | Returns      | Description                              |
-|-----------------------------------|--------------|------------------------------------------|
-| `Languages::get($slug)`           | `?Language`  | Lookup by slug                           |
-| `Languages::fromExtension($ext)`  | `?Language`  | Lookup by file extension                 |
-| `Languages::fromAlias($alias)`    | `?Language`  | Lookup by alias                          |
-| `Languages::fromFilename($name)`  | `?Language`  | Lookup by exact filename or extension    |
-| `Languages::resolve($identifier)` | `?Language`  | Try all lookup methods in order          |
-| `Languages::all()`                | `Language[]` | All registered languages                 |
-| `Languages::ofType($type)`        | `Language[]` | Filter by `LanguageType`                 |
-| `Languages::children($slug)`      | `Language[]` | Languages whose parent is the given slug |
-| `Languages::conflicts()`          | `array`      | Extension/alias/filename collisions      |
+The [ALTO Language documentation](https://altophp.com/language/) covers:
 
-### Injectable Registry (`LanguageRegistry`)
-
-All facade methods delegate to `LanguageRegistry`, which can be injected directly:
-
-```php
-use Alto\Language\LanguageRegistry;
-
-$registry = new LanguageRegistry();
-$python = $registry->get('python');
-```
-
-### Language Object
-
-Each `Language` is an immutable value object:
-
-```php
-$lang = Languages::get('typescript');
-
-$lang->name;       // "TypeScript"
-$lang->slug;       // "typescript"
-$lang->type;       // LanguageType::Programming
-$lang->extensions; // [".ts", ".tsx", ".mts", ".cts"]
-$lang->aliases;    // ["ts"]
-$lang->filenames;  // []
-$lang->year;       // 2012
-$lang->parent;     // "javascript"
-$lang->markers;    // CodeMarkers instance
-```
-
-Languages are JSON-serializable:
-
-```php
-json_encode(Languages::get('go'));
-```
-
-### Code Markers
-
-Syntax fingerprints attached to each language:
-
-```php
-$markers = Languages::get('php')->markers;
-
-$markers->lineComments;     // ["//", "#"]
-$markers->blockComments;    // [["/*", "*/"]]
-$markers->docComment;       // ["/**", "*/"]
-$markers->stringDelimiters; // ["\"", "'"]
-$markers->heredoc;          // true
-$markers->shebang;          // "#!/usr/bin/env php"
-$markers->openingTag;       // "<?php"
-$markers->typicalHeaders;   // ["<?php", "<?="]
-$markers->blockStyle;       // BlockStyle::Braces
-$markers->defaultIndentation; // 4
-$markers->indentStyle;      // IndentStyle::Spaces
-```
-
-### Enums
-
-**`LanguageType`** — categorizes languages by purpose:
-
-`Programming`, `Markup`, `Data`, `Prose`, `Query`, `Stylesheet`, `Template`, `Config`, `Other`
-
-**`BlockStyle`** — code block delimiters:
-
-`Braces`, `Indentation`, `BeginEnd`, `Tags`, `None`
-
-**`IndentStyle`** — default indentation:
-
-`Spaces`, `Tabs`
-
-## Languages
-
-62 languages included:
-
-| Language         | Extensions                    | Type        |
-|------------------|-------------------------------|-------------|
-| Bash             | `.sh`, `.bash`                | Programming |
-| C                | `.c`, `.h`                    | Programming |
-| C#               | `.cs`                         | Programming |
-| C++              | `.cpp`, `.cc`, `.cxx`, `.hpp` | Programming |
-| Clojure          | `.clj`, `.cljs`, `.cljc`      | Programming |
-| CMake            | `.cmake`                      | Programming |
-| CoffeeScript     | `.coffee`                     | Programming |
-| CSS              | `.css`                        | Stylesheet  |
-| Dart             | `.dart`                       | Programming |
-| Diff             | `.diff`, `.patch`             | Data        |
-| Dockerfile       | —                             | Config      |
-| Dotenv           | —                             | Config      |
-| Elixir           | `.ex`, `.exs`                 | Programming |
-| Erlang           | `.erl`, `.hrl`                | Programming |
-| F#               | `.fs`, `.fsi`, `.fsx`         | Programming |
-| Git Attributes   | —                             | Config      |
-| Git Config       | —                             | Config      |
-| Go               | `.go`                         | Programming |
-| GraphQL          | `.graphql`, `.gql`            | Query       |
-| Groovy           | `.groovy`, `.gvy`             | Programming |
-| Haskell          | `.hs`, `.lhs`                 | Programming |
-| HCL              | `.hcl`, `.tf`                 | Programming |
-| htaccess         | —                             | Config      |
-| HTML             | `.html`, `.htm`               | Markup      |
-| HTTP             | `.http`, `.rest`              | Data        |
-| Ignore           | —                             | Config      |
-| INI              | `.ini`, `.cfg`                | Config      |
-| Java             | `.java`                       | Programming |
-| JavaScript       | `.js`, `.mjs`, `.cjs`, `.jsx` | Programming |
-| JSON             | `.json`                       | Data        |
-| Julia            | `.jl`                         | Programming |
-| Just             | —                             | Config      |
-| Kotlin           | `.kt`, `.kts`                 | Programming |
-| Less             | `.less`                       | Stylesheet  |
-| Lua              | `.lua`                        | Programming |
-| Makefile         | —                             | Programming |
-| Markdown         | `.md`, `.markdown`            | Prose       |
-| NEON             | `.neon`                       | Config      |
-| Nix              | `.nix`                        | Programming |
-| Objective-C      | `.m`, `.mm`                   | Programming |
-| OCaml            | `.ml`, `.mli`                 | Programming |
-| Perl             | `.pl`, `.pm`                  | Programming |
-| PHP              | `.php`, `.phtml`              | Programming |
-| PowerShell       | `.ps1`, `.psm1`               | Programming |
-| Procfile         | —                             | Config      |
-| Protocol Buffers | `.proto`                      | Data        |
-| Python           | `.py`, `.pyw`                 | Programming |
-| R                | `.r`, `.R`                    | Programming |
-| Ruby             | `.rb`                         | Programming |
-| Rust             | `.rs`                         | Programming |
-| Sass             | `.sass`                       | Stylesheet  |
-| Scala            | `.scala`, `.sc`               | Programming |
-| SCSS             | `.scss`                       | Stylesheet  |
-| SQL              | `.sql`                        | Query       |
-| SVG              | `.svg`                        | Markup      |
-| Swift            | `.swift`                      | Programming |
-| TOML             | `.toml`                       | Config      |
-| Twig             | `.twig`                       | Template    |
-| TypeScript       | `.ts`, `.tsx`, `.mts`, `.cts` | Programming |
-| XML              | `.xml`, `.xsl`, `.xsd`        | Markup      |
-| YAML             | `.yml`, `.yaml`               | Data        |
-| Zig              | `.zig`                        | Programming |
-
-Languages with filename-based matching (no extension): Dockerfile, Makefile, `.gitignore`, `.env`, `Procfile`,
-`Justfile`, `.htaccess`, and more.
+- [lookup rules](https://altophp.com/language/lookup/);
+- the [bundled catalog](https://altophp.com/language/catalog/);
+- [language definitions and custom registration](https://altophp.com/language/definitions/).
 
 ## Contributing
 
-Contributions are welcome! Please feel free to [submit issues](https://github.com/altophp/language/issues)
-or [pull requests](https://github.com/altophp/language/pulls).
+Contributions of all kinds are welcome. Visit the
+[project on GitHub](https://github.com/altophp/language) to
+[report a bug](https://github.com/altophp/language/issues/new),
+[suggest a feature](https://github.com/altophp/language/issues/new), or
+[open a pull request](https://github.com/altophp/language/pulls).
 
-### Adding a Language
+Before submitting code, run:
 
-Create a new file in `data/languages/`:
-
-```php
-<?php
-// data/languages/mylang.php
-
-use Alto\Language\CodeMarkers;
-use Alto\Language\Language;
-use Alto\Language\LanguageType;
-
-return new Language(
-    name: 'MyLang',
-    slug: 'mylang',
-    type: LanguageType::Programming,
-    extensions: ['.ml'],
-    aliases: ['my'],
-    markers: new CodeMarkers(
-        lineComments: ['//'],
-        blockComments: [['/*', '*/']],
-    ),
-);
+```bash
+# Runs PHP CS Fixer, PHPStan, and PHPUnit
+composer qa
 ```
+
+Changes to public behavior should include tests and documentation.
+
+Bundled definitions live in `data/languages/`. Add one file named after the language slug; the
+catalog consistency tests validate its identifiers, filenames, and parent relationship.
+
+## Support
+
+ALTO Language is open source. You can support its continued development through
+[GitHub Sponsors](https://github.com/sponsors/smnandre).
+
+Sharing this package with others or
+[starring it on GitHub](https://github.com/altophp/language) is also much
+appreciated.
 
 ## License
 
-Released by the [Alto project](https://github.com/altophp) under the MIT License.
-See the [LICENSE](LICENSE) file for details.
+ALTO Language is released by [ALTO PHP](https://altophp.com) under the
+[MIT License](LICENSE).
