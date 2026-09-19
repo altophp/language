@@ -52,11 +52,15 @@ identifier may be a slug, alias, extension, or filename.
 
 ## Documentation
 
-The [ALTO Language documentation](https://altophp.com/language/) covers:
+- [Installation](docs/installation.md)
+- [Getting started](docs/getting-started.md)
+- [Lookup](docs/lookup.md)
+- [Catalog](docs/catalog.md)
+- [Definitions](docs/definitions.md)
 
-- [lookup rules](https://altophp.com/language/lookup/);
-- the [bundled catalog](https://altophp.com/language/catalog/);
-- [language definitions and custom registration](https://altophp.com/language/definitions/).
+The [documentation index](docs/index.md) lists these pages in site navigation
+order. The same documentation is published on
+[altophp.com](https://altophp.com/language).
 
 ## Contributing
 
