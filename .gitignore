@@ -5,6 +5,3 @@
 /.php-cs-fixer.cache
 /coverage/
 /coverage.xml
-/clover.xml
-/phpstan.neon
-/phpunit.xml
