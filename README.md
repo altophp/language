@@ -79,17 +79,19 @@ composer qa
 
 Changes to public behavior should include tests and documentation.
 
-Bundled definitions live in `data/languages/`. Add one file named after the language slug; the
-catalog consistency tests validate its identifiers, filenames, and parent relationship.
+Bundled definitions live in `data/languages/`. Add one file named after the
+language slug; catalogue tests validate identifiers, filenames, and parent
+relationships.
 
 ## Support
 
-ALTO Language is open source. You can support its continued development through
+ALTO Language is open source and independently maintained by
+[Simon André](https://smnandre.dev). If it is useful to your work, you can
+support its continued development through
 [GitHub Sponsors](https://github.com/sponsors/smnandre).
 
-Sharing this package with others or
-[starring it on GitHub](https://github.com/altophp/language) is also much
-appreciated.
+Sharing the package or
+[starring it on GitHub](https://github.com/altophp/language) also helps.
 
 ## License
 
