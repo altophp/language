@@ -19,11 +19,11 @@
             "email": "smn.andre@gmail.com"
         }
     ],
-    "homepage": "https://altophp.com/language/",
+    "homepage": "https://altophp.com/language",
     "support": {
         "issues": "https://github.com/altophp/language/issues",
         "source": "https://github.com/altophp/language",
-        "docs": "https://altophp.com/language/"
+        "docs": "https://altophp.com/language"
     },
     "funding": [
         {
